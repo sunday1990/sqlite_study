@@ -1,0 +1,62 @@
+//建班级表
+create table it_class{
+cid int primary key auto_increment,
+cname varchar(20) comment '班级姓名'
+};
+//建学生表
+create table it_student{
+sid int primary key auto_increment,
+sname varchar(20),
+class_id int,
+foreign key(class_id) references it_class(cid)//？外键
+};
+
+//查询
+select *from it_student;
+
+//插入
+insert into it_class values(1,'java0001');
+insert into it_class values(2.'java0002');
+insert into it_class values(3,'java0003');
+insert into it_student values(1,'zs',1);
+insert into it_student values(2, 'ls',2);
+insert into it_student values(3, 'ww',3);
+insert into it_student values(4,'zl',2);
+
+//条件查询
+delete from it_class where cid=3; 
+//插入两个
+insert into it_sutdent values(5,'john',3),(6,'Peter',3);
+
+----查看1班和2班的所有学生的信息
+select sname,cname from it_student s,it_class c where c.cid=s.class_id;
+select sname,cname from it_student s inner join it_class c on s.class_id=c.cid;//?inner join
+
+----查看所有班级的学生情况
+select sname,cname from it_student s right join it_class c on s.class_id=c.cid;//?right join on
+----查看所有学生的信息
+select sname,cname from it_student s left join it_class c on s.class_id = c.cid;//?left join on
+
+
+----删除班级 
+delete from it_class where cid=1;
+
+----更新班级
+update it_class set cid=2 where cid=1;
+
+----查看表的创建过程
+show create table it_student;
+
+----删除外键
+alter table it_student droop foreign key it_studen_idfk_1;
+
+----增加外键，级联操作设置为级联更新 ?
+alter table it_student add foreign key(class_id) references it_calss(cid) on update cascade;
+update it_class set cid=2 where cid=1
+
+ 
+----增加外键，级联操作设置为级联删除
+alter table it_student add foreign key(class_id) references it_class(cid) on delete cascade;
+delete from it_class where cid = 1;
+
+
